@@ -30,6 +30,11 @@ app.use("/api/user", userRoutes);
 app.use("/api/item", itemRoutes);
 app.use("/api/admin", adminRoutes);
 
+
+// const frontendPath = path.join(__dirname, "../frontend/build"); // CRA
+const frontendPath = path.join(__dirname, "../frontend/dist")
+app.use(express.static(frontendPath));
+
 // ✅ Default route to avoid "Cannot GET /"
 app.get("/", (req, res) => {
   res.send("🚀 Backend is live and running on Render!");
