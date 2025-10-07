@@ -1,38 +1,46 @@
-const express = require('express')
-require('dotenv').config()
-const userroute = require('./src/routes/user.routes')
-const connectDB = require('./src/db/db')
-const itemroute = require('../Backend/src/routes/item.routes')
+const express = require("express");
+require("dotenv").config();
 const cookieParser = require("cookie-parser");
-const cors = require('cors')
-const adminroutes = require("../Backend/src/routes/admin.routes")
+const cors = require("cors");
+const connectDB = require("./src/db/db");
 
-
-
-
+// ✅ Correct route imports (assuming this file is in root of backend)
+const userRoutes = require("./src/routes/user.routes");
+const itemRoutes = require("./src/routes/item.routes");
+const adminRoutes = require("./src/routes/admin.routes");
 
 const app = express();
-app.use(cookieParser()); 
-app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true,
-}));
 
+// ✅ Middleware
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // for local testing
+      "https://your-frontend.onrender.com", // replace with your frontend Render link
+    ],
+    credentials: true,
+  })
+);
 
+app.use(express.json());
 
+// ✅ Routes
+app.use("/api/user", userRoutes);
+app.use("/api/item", itemRoutes);
+app.use("/api/admin", adminRoutes);
 
-app.use(express.json()); 
-app.use('/api/user' , userroute)
-app.use('/api/item' , itemroute )
-app.use("/api/admin" , adminroutes)
+// ✅ Default route to avoid "Cannot GET /"
+app.get("/", (req, res) => {
+  res.send("🚀 Backend is live and running on Render!");
+});
 
-
-
-
+// ✅ Database connection
 connectDB();
 
+// ✅ Use Render's provided port
+const PORT = process.env.PORT || 3000;
 
-
-app.listen(3000 , ()=>{
-    console.log("server is runnig at port 3000")
-})
+app.listen(PORT, () => {
+  console.log(`✅ Server is running on port ${PORT}`);
+});
