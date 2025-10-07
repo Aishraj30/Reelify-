@@ -3,6 +3,7 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const connectDB = require("./src/db/db");
+const path = require('path')
 
 // ✅ Correct route imports (assuming this file is in root of backend)
 const userRoutes = require("./src/routes/user.routes");
