@@ -32,8 +32,13 @@ app.use("/api/admin", adminRoutes);
 
 
 // const frontendPath = path.join(__dirname, "../frontend/build"); // CRA
-const frontendPath = path.join(__dirname, "../frontend/dist")
+const frontendPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(frontendPath));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+
 
 // ✅ Default route to avoid "Cannot GET /"
 app.get("/", (req, res) => {
