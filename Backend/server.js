@@ -1,38 +1,34 @@
-const express = require("express");
-const path = require("path");
-require("dotenv").config();
+const express = require('express')
+require('dotenv').config()
+const userroute = require('./src/routes/user.routes')
+const connectDB = require('./src/db/db')
+const itemroute = require('../Backend/src/routes/item.routes')
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const connectDB = require("./src/db/db");
+const cors = require('cors')
+const adminroutes = require("../Backend/src/routes/admin.routes")
 
-// Routes
-const userRoutes = require("./src/routes/user.routes");
-const itemRoutes = require("./src/routes/item.routes");
-const adminRoutes = require("./src/routes/admin.routes");
+
+
+
 
 const app = express();
+app.use(cookieParser()); 
+app.use(cors({
+    origin:"http://localhost:5173",
+    credentials:true,
+}));
 
-// Middleware
-app.use(cookieParser());
-app.use(cors({ origin: "*", credentials: true }));
-app.use(express.json());
 
-// API Routes
-app.use("/api/user", userRoutes);
-app.use("/api/item", itemRoutes);
-app.use("/api/admin", adminRoutes);
 
-// Serve frontend
-const frontendPath = path.join(__dirname, "../frontend/dist");
-app.use(express.static(frontendPath));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
-});
-
-// Connect DB
+app.use(express.json()); 
+app.use('/api/user' , userroute)
+app.use('/api/item' , itemroute )
+app.use("/api/admin" , adminroutes)
 connectDB();
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+app.listen(3000 , ()=>{
+    console.log("server is runnig at port 3000")
+})
