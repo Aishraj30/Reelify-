@@ -18,7 +18,7 @@ import Createitem from "../pages/admin/Createitem";
 // General pages
 
 
-const AppRoutes = () => {
+const Approutes = () => {
   return (
     <Router>
       <Routes>
@@ -46,4 +46,4 @@ const AppRoutes = () => {
   );
 };
 
-export default AppRoutes ;
+export default Approutes ;
