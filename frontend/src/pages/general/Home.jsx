@@ -11,9 +11,11 @@ const Home = () => {
   const videoRefs = useRef([]);
 
   // Fetch videos from backend
+
+ // (`${import.meta.env.VITE_API_URL}/api/item`
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/item", { withCredentials: true })
+      .get(`${import.meta.env.VITE_API_URL}/api/item`, { withCredentials: true })
       .then((res) => {
         setVideos(res.data.items); // Make sure backend returns items array
       })

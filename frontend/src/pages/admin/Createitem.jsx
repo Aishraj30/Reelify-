@@ -42,9 +42,9 @@ const OptionForm = () => {
       formData.append("description", description);
       formData.append("video", videoFile);
       formData.append('storeLink', storeLink);  // ✅ renamed key from "mama" to "video"
-
+//`${import.meta.env.VITE_API_URL}/api/item`
       const response = await axios.post(
-        "http://localhost:3000/api/item",
+       `${import.meta.env.VITE_API_URL}/api/item`,
         formData,
         {
           headers: {

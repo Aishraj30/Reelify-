@@ -14,9 +14,9 @@ const AdminLogin = () => {
       const password = e.target.password.value;
 
       try {
-
+//`${import.meta.env.VITE_API_URL}/api/item`
         const response = await axios.post(
-            ("http://localhost:3000/api/user/adminlogin"),
+            (`${import.meta.env.VITE_API_URL}/api/user/adminlogin`),
             {email , password},
             {withCredentials: true}
         )

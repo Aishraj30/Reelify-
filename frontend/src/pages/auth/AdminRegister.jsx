@@ -17,7 +17,7 @@ const AdminRegister = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/adminregister",
+        `${import.meta.env.VITE_API_URL}/api/user/adminregister`,
         { fullname, BusinessName, phone, address, email, password },
         { withCredentials: true }
       );
